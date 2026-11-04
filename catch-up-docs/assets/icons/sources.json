@@ -1,0 +1,122 @@
+[
+  {
+    "file": "alb.png",
+    "sha256": "dcf3df1f875b3f6f63f36772df3d19d3c417d802bd17af03098309fbd494d01f",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "cloudfront.png",
+    "sha256": "b132df4f324863f9930a8a8de40afd4a706100d4f0cedaf301680e8dc72517d3",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "docker.svg",
+    "sha256": "65571291c261ef869c31540a38f3ca0f0ee3bb73f179c172211c8860f19a6359",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "dynamodb.png",
+    "sha256": "e15ee090401abeafdfc4a3e3a31280354d1783c4170074f692796be330265b32",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "ecr.png",
+    "sha256": "7b741d10fd1269cf563ee1b0ea6e33a430cdc80ba388a75e2dbd8ae274ae6b9a",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "ecs.png",
+    "sha256": "c3dcff02e52e0ec461882c45978ef80cfec1558c94ad2167707aa1fbad423c46",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "express.svg",
+    "sha256": "7f2cc8797a53da60e11e0d06e75e57d4d5f15965e1ad57e42f9d9711c40dbed5",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "github.svg",
+    "sha256": "3bf8cceead820aec50d4ee825a3fd02c5a1cd6665cc9cf4cbf3d9c8861a204bb",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "react.svg",
+    "sha256": "ab9136a1a4a8be72ac6743e1bdd1912d878bd68d57787ea7a6c6838e3b23c01c",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "route53.png",
+    "sha256": "4e655fa9c25359ff9b74e5fd71bbff47676abb0bc5b0fe8c05132a7b5e947838",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "s3.png",
+    "sha256": "6715951abe7d964792afc3d36dec4e2f89e7d27df74d702ba75e575304a80d22",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "secrets.png",
+    "sha256": "cc96442f09e220c210022d0b3cd5978cee7fcdca8b35855ce784f22495eafdbd",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "ses.png",
+    "sha256": "ede5700ab51609893e95c1792d2bea9ae37c9c8d1c9ffc0ca6d6457ccf1f43b1",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "tailwindcss.svg",
+    "sha256": "5d4ede3c95da824f543c6eefbe7c78b45ecce6796f6633de196dd712a7841140",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "terraform.svg",
+    "sha256": "9c3737d360a174afec8fa0208332a3991f087ea0b7bacb1eea16598883e1a730",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "typescript.svg",
+    "sha256": "7f023e8d1e767370306ec9437d2de5d5af97491d6208dd7799a3808a7c10a36a",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "vite.svg",
+    "sha256": "642bb261d6476ddf326b8ed7757543b3443a93a77fef1e434021fc201defa21c",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "vitest.svg",
+    "sha256": "216ef31fa83484d7c42fa9caae00a857d3756cb6158516dd395799f2b6631d5c",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "waf.png",
+    "sha256": "b37a7763bcca498d9fe4594f16ec93d222a0456b31fc3653dd859f399827e64e",
+    "source": "https://github.com/awslabs/aws-icons-for-plantuml",
+    "license": "MIT; AWS trademarks remain subject to their terms"
+  },
+  {
+    "file": "zod.svg",
+    "sha256": "e8808a8b34a76aa064ca1b5b378d4f73cbc7690303f1e4a1c864d2ad08b712b3",
+    "source": "https://github.com/simple-icons/simple-icons",
+    "license": "CC0-1.0"
+  }
+]

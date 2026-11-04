@@ -1,0 +1,586 @@
+{
+  "meta": {
+    "guide_id": "example-repository",
+    "title": "リポジトリ技術ガイド",
+    "heading_lines": [
+      "リポジトリ解説",
+      "技術ガイド"
+    ],
+    "repo_name": "example-repository",
+    "short_name": "EXAMPLE",
+    "repo_url": null,
+    "commit": null,
+    "snapshot": "illustrative example",
+    "verified_at": "架空の構成例・実装の調査結果ではありません",
+    "audience": "テンプレートの表示・操作を確認するためのサンプル",
+    "lead": "画面からAPI、データ保存、環境ごとの配信までを、コードの入口と構成図で辿る教材のサンプルです。以下のファイル名と構成は説明用の架空例です。",
+    "actions": [
+      {
+        "target": "setup",
+        "label": "開発準備から読む"
+      },
+      {
+        "target": "first-change",
+        "label": "最初の修正を辿る"
+      }
+    ],
+    "footer": "架空リポジトリの構成例。実案件ではコードの根拠・対象SHA・確認日・未確認事項を置き換えてください。"
+  },
+  "chapters": [
+    {
+      "id": "orientation",
+      "title": "全体像と担当範囲",
+      "nav": "全体像",
+      "eyebrow": "ORIENTATION",
+      "intro": "コードと実行環境をつなぎ、最初に知るべき境界を確認する。",
+      "blocks": [
+        {
+          "type": "note",
+          "title": "このサンプルの位置付け",
+          "html": "<p>これは<strong>架空の構成例</strong>です。実際の教材ではリポジトリの実装に置き換え、根拠リンクを付けます。</p>"
+        },
+        {
+          "type": "columns",
+          "items": [
+            {
+              "eyebrow": "APPLICATION",
+              "title": "担当する範囲",
+              "html": "<p>公開画面、入力フォーム、管理画面を持つWebアプリを想定する。</p>"
+            },
+            {
+              "eyebrow": "FIRST CHANGE",
+              "title": "最初の到達点",
+              "html": "<p>ページの文言を1か所変更し、検証とレビューを経て対象環境で確認する。</p>"
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "id": "runtime-overview",
+          "title": "画面からAPIとデータ保存へ",
+          "figure_label": "FIG. 01 / CODE & RUNTIME",
+          "description": "ブラウザ内のReact、ルーティング、データ取得から、ExpressとDynamoDB、S3へ処理が進む架空の構成例。",
+          "caption": "架空の構成例。UI・通信・保存先の責務を分けて読む。",
+          "width": 900,
+          "height": 350,
+          "bands": [
+            {
+              "x": 15,
+              "y": 15,
+              "w": 870,
+              "h": 130,
+              "label": "BROWSER / CLIENT"
+            },
+            {
+              "x": 15,
+              "y": 185,
+              "w": 870,
+              "h": 150,
+              "label": "SERVER / STORAGE"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "ui",
+              "x": 35,
+              "y": 58,
+              "w": 240,
+              "h": 75,
+              "title": "React + TypeScript",
+              "subtitle": [
+                "pages / components"
+              ],
+              "icon": "react"
+            },
+            {
+              "id": "router",
+              "x": 320,
+              "y": 58,
+              "w": 230,
+              "h": 75,
+              "title": "Client Router",
+              "subtitle": [
+                "URL → page"
+              ]
+            },
+            {
+              "id": "query",
+              "x": 595,
+              "y": 58,
+              "w": 265,
+              "h": 75,
+              "title": "Query Cache",
+              "subtitle": [
+                "fetch / loading / error"
+              ]
+            },
+            {
+              "id": "api",
+              "x": 35,
+              "y": 237,
+              "w": 240,
+              "h": 80,
+              "title": "Express API",
+              "subtitle": [
+                "routes → storage"
+              ],
+              "icon": "express"
+            },
+            {
+              "id": "db",
+              "x": 320,
+              "y": 237,
+              "w": 230,
+              "h": 80,
+              "title": "DynamoDB",
+              "subtitle": [
+                "records / sessions"
+              ],
+              "icon": "dynamodb"
+            },
+            {
+              "id": "files",
+              "x": 595,
+              "y": 237,
+              "w": 265,
+              "h": 80,
+              "title": "Amazon S3",
+              "subtitle": [
+                "private files"
+              ],
+              "icon": "s3"
+            }
+          ],
+          "edges": [
+            {
+              "from": "ui",
+              "to": "router"
+            },
+            {
+              "from": "router",
+              "to": "query"
+            },
+            {
+              "from": "query",
+              "from_side": "bottom",
+              "to": "api",
+              "to_side": "top",
+              "via": [
+                [
+                  727.5,
+                  168
+                ],
+                [
+                  155,
+                  168
+                ]
+              ],
+              "label": "HTTP / JSON",
+              "label_at": [
+                590,
+                162
+              ]
+            },
+            {
+              "from": "api",
+              "to": "db"
+            },
+            {
+              "from": "api",
+              "from_side": "bottom",
+              "to": "files",
+              "to_side": "bottom",
+              "via": [
+                [
+                  155,
+                  327
+                ],
+                [
+                  727.5,
+                  327
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "setup",
+      "title": "開発を始める準備",
+      "nav": "開発準備",
+      "eyebrow": "GETTING STARTED",
+      "intro": "実際の教材では、権限・環境変数・DB・起動コマンドを実装と照合する。",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "項目",
+            "確認すること"
+          ],
+          "rows": [
+            [
+              "依存",
+              "manifestの宣言とlockfileの解決済みバージョン。"
+            ],
+            [
+              "起動",
+              "package script、env読込、port、DB初期化、副作用。"
+            ],
+            [
+              "権限",
+              "clone・PR・ログ閲覧、検証環境の接続条件。"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "text": "# 架空例。実際のコマンドは対象リポジトリを確認してから記載する。\nnpm ci\nnpm run dev"
+        },
+        {
+          "type": "note",
+          "kind": "warn",
+          "title": "手順と実行は分ける",
+          "html": "<p>教材に手順を記載することは、本番環境や共有DBの変更を実行することとは別です。</p>"
+        }
+      ]
+    },
+    {
+      "id": "code-map",
+      "title": "修正箇所を探す",
+      "nav": "コードの入口",
+      "eyebrow": "CODEBASE NAVIGATION",
+      "intro": "URLからページ、共通部品、API、保存層の順に辿る。",
+      "blocks": [
+        {
+          "type": "file_finder",
+          "id": "page-finder",
+          "items": [
+            {
+              "label": "トップページ",
+              "route": "/",
+              "file": "client/src/pages/home.tsx",
+              "description": "トップの見出しやCTAを持つ架空のページ。"
+            },
+            {
+              "label": "入力フォーム",
+              "route": "/request",
+              "file": "client/src/pages/request.tsx",
+              "description": "入力UI。APIのvalidationと共有schemaも確認する架空例。"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "text": "client/src/\n  pages/          # URLごとのページ\n  components/     # 共通UI\nserver/\n  routes.ts       # HTTP境界\n  storage.ts      # 保存層の契約\nshared/\n  schema.ts       # 共有の型・validation"
+        },
+        {
+          "type": "sources",
+          "items": [
+            {
+              "path": "client/src/pages/home.tsx",
+              "label": "架空のファイル例（実際の根拠ではない）"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stack",
+      "title": "技術スタックを一つずつ読む",
+      "nav": "技術詳解",
+      "eyebrow": "TECHNOLOGY REFERENCE",
+      "intro": "ライブラリの特徴、利用場所、採用する利点と負担を折り畳みで説明する。",
+      "blocks": [
+        {
+          "type": "tech_stack",
+          "id": "technology-notes",
+          "items": [
+            {
+              "group": "01 / CLIENT",
+              "name": "React",
+              "version": "サンプル",
+              "icon": "react",
+              "summary": "UIをコンポーネントと状態で構成する",
+              "what": "propsとstateに応じたUIをコンポーネントで記述するJavaScriptライブラリ。",
+              "locations": [
+                {
+                  "path": "client/src/main.tsx"
+                }
+              ],
+              "motivation": "複数画面でUIを再利用し、入力状態を局所化しやすい。これは架空例での技術的な解釈。",
+              "benefits": "コンポーネントごとの再利用とテスト。",
+              "tradeoffs": "Hooksと非同期状態の理解が必要。ルーティングやデータ取得は別途設計する。",
+              "attention": "実教材では採用版とクライアント描画/SSRの実装を確認する。",
+              "docs": [
+                {
+                  "url": "https://react.dev/",
+                  "label": "公式ドキュメント"
+                }
+              ]
+            },
+            {
+              "group": "02 / SERVER",
+              "name": "Express",
+              "version": "サンプル",
+              "icon": "express",
+              "summary": "HTTPルーティングとミドルウェアの基盤",
+              "what": "登録順にミドルウェアとルートを組み合わせ、HTTPリクエストを処理する。",
+              "locations": [
+                {
+                  "path": "server/routes.ts"
+                }
+              ],
+              "motivation": "TypeScriptでUIとAPIを実装し、保存層へ接続したい場合に適するという解釈。",
+              "benefits": "HTTP境界を直接制御し、テスト時に依存を差し替えやすい。",
+              "tradeoffs": "認可や責務の分割をアプリ側で設計する必要がある。",
+              "attention": "実教材ではExpress 4/5の差と実際の認証経路を確認する。",
+              "docs": [
+                {
+                  "url": "https://expressjs.com/",
+                  "label": "公式ドキュメント"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "environments",
+      "title": "環境ごとの配信構成",
+      "nav": "構成と環境差",
+      "eyebrow": "INFRASTRUCTURE",
+      "intro": "環境差があるときは、同じ図に混ぜずタブで比較する。いずれも架空例。",
+      "blocks": [
+        {
+          "type": "tabs",
+          "id": "environment-diagrams",
+          "items": [
+            {
+              "label": "本番の構成例",
+              "blocks": [
+                {
+                  "type": "diagram",
+                  "id": "production-route",
+                  "title": "CDNとAPIの分岐",
+                  "figure_label": "FIG. 02 / PRODUCTION EXAMPLE",
+                  "width": 900,
+                  "height": 350,
+                  "caption": "架空例。基本HTMLとAPIが別originへ進む。",
+                  "bands": [
+                    {
+                      "x": 15,
+                      "y": 15,
+                      "w": 870,
+                      "h": 320,
+                      "label": "ILLUSTRATIVE / PRODUCTION"
+                    }
+                  ],
+                  "nodes": [
+                    {
+                      "id": "browser",
+                      "x": 35,
+                      "y": 58,
+                      "w": 230,
+                      "h": 76,
+                      "title": "Browser",
+                      "subtitle": [
+                        "HTTPS"
+                      ]
+                    },
+                    {
+                      "id": "cdn",
+                      "x": 330,
+                      "y": 58,
+                      "w": 240,
+                      "h": 76,
+                      "title": "CloudFront",
+                      "subtitle": [
+                        "path routing"
+                      ],
+                      "icon": "cloudfront"
+                    },
+                    {
+                      "id": "static",
+                      "x": 630,
+                      "y": 58,
+                      "w": 235,
+                      "h": 76,
+                      "title": "S3 frontend",
+                      "subtitle": [
+                        "HTML / JS / CSS"
+                      ],
+                      "icon": "s3"
+                    },
+                    {
+                      "id": "app",
+                      "x": 330,
+                      "y": 217,
+                      "w": 240,
+                      "h": 82,
+                      "title": "ECS / Fargate",
+                      "subtitle": [
+                        "API runtime"
+                      ],
+                      "icon": "ecs"
+                    },
+                    {
+                      "id": "db",
+                      "x": 630,
+                      "y": 217,
+                      "w": 235,
+                      "h": 82,
+                      "title": "DynamoDB",
+                      "subtitle": [
+                        "private data"
+                      ],
+                      "icon": "dynamodb"
+                    }
+                  ],
+                  "edges": [
+                    {
+                      "from": "browser",
+                      "to": "cdn"
+                    },
+                    {
+                      "from": "cdn",
+                      "to": "static"
+                    },
+                    {
+                      "from": "cdn",
+                      "from_side": "bottom",
+                      "to": "app",
+                      "to_side": "top",
+                      "label": "/api/*",
+                      "label_at": [
+                        467,
+                        180
+                      ]
+                    },
+                    {
+                      "from": "app",
+                      "to": "db"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "検証環境の構成例",
+              "blocks": [
+                {
+                  "type": "diagram",
+                  "id": "staging-route",
+                  "title": "単一コンテナの検証環境",
+                  "figure_label": "FIG. 03 / STAGING EXAMPLE",
+                  "width": 900,
+                  "height": 220,
+                  "caption": "架空例。CDNのある本番とは確認できる範囲が異なる。",
+                  "bands": [
+                    {
+                      "x": 15,
+                      "y": 15,
+                      "w": 870,
+                      "h": 190,
+                      "label": "ILLUSTRATIVE / STAGING"
+                    }
+                  ],
+                  "nodes": [
+                    {
+                      "id": "browser",
+                      "x": 35,
+                      "y": 75,
+                      "w": 230,
+                      "h": 88,
+                      "title": "Browser",
+                      "subtitle": [
+                        "allowed network"
+                      ]
+                    },
+                    {
+                      "id": "alb",
+                      "x": 330,
+                      "y": 75,
+                      "w": 240,
+                      "h": 88,
+                      "title": "ALB",
+                      "subtitle": [
+                        "HTTPS"
+                      ],
+                      "icon": "alb"
+                    },
+                    {
+                      "id": "app",
+                      "x": 630,
+                      "y": 75,
+                      "w": 235,
+                      "h": 88,
+                      "title": "ECS / Fargate",
+                      "subtitle": [
+                        "static files + API"
+                      ],
+                      "icon": "ecs"
+                    }
+                  ],
+                  "edges": [
+                    {
+                      "from": "browser",
+                      "to": "alb"
+                    },
+                    {
+                      "from": "alb",
+                      "to": "app"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first-change",
+      "title": "最初の修正から確認まで",
+      "nav": "最初の修正",
+      "eyebrow": "FIRST CHANGE",
+      "intro": "教材には対象ファイルと確認方法を示し、アプリへの変更は依頼された範囲でだけ実施する。",
+      "blocks": [
+        {
+          "type": "html",
+          "html": "<h3>架空例の作業手順</h3><ol><li>対象URLからページのファイルを特定する。</li><li>文言を1か所だけ変更する。</li><li>manifestにある検査とビルドを実行する。</li><li>スマホ幅で表示とリンク遷移を確認する。</li><li>PRでレビューし、対象環境への反映判断を確認する。</li></ol>"
+        },
+        {
+          "type": "checklist",
+          "id": "first-change-checks",
+          "items": [
+            {
+              "id": "locate",
+              "label": "対象URLと編集ファイルが分かる"
+            },
+            {
+              "id": "verify",
+              "label": "型検査・テスト・ビルドのコマンドが分かる"
+            },
+            {
+              "id": "review",
+              "label": "レビュー担当と反映の判断者を確認した"
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "routing-question",
+          "question": "SPA内では遷移できるが、直接URLを開くと失敗する。次にどこを確認する？",
+          "answers": [
+            "クライアントのstateだけを確認する",
+            "配信側のルーティング・rewrite・HTMLの配置を確認する"
+          ],
+          "correct": 1,
+          "explanation": "内部遷移と初回HTML取得は別の経路です。実装と配信設定の両方を辿ります。"
+        }
+      ]
+    }
+  ]
+}

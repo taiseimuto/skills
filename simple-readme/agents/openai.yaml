@@ -1,0 +1,4 @@
+interface:
+  display_name: "Simple README"
+  short_description: "人が概要と使い始め方をつかめるREADMEへ整理し、必要な構成図を作成"
+  default_prompt: "$simple-readme を使って、このプロジェクトのREADMEを人が読みやすい入口に整理してください。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Catch-up Docs"
+  short_description: "リポジトリの技術解説を共通デザインとSVG図で教材化し、静的サイト・単一HTMLで出力"
+  default_prompt: "$catch-up-docs を使って、このリポジトリの開発参加向け技術教材を、構成図と折り畳み解説付きで作成してください。"
